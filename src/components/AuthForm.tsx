@@ -3,13 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, ArrowRight, Loader2, Github, Twitter } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import type { InteractionState } from "../App";
 
 interface AuthFormProps {
   isLogin: boolean;
   onToggleMode: () => void;
+  // Prop to update the bear state
+  onInteractionChange: (state: InteractionState) => void;
 }
 
-export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
+export function AuthForm({ isLogin, onToggleMode, onInteractionChange }: AuthFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,16 +29,16 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
     <div className="w-full max-w-[420px] px-6">
       <div className="mb-8 flex flex-col items-center lg:items-start">
         <motion.div
-           key={isLogin ? "login-h" : "signup-h"}
-           initial={{ opacity: 0, y: 10 }}
-           animate={{ opacity: 1, y: 0 }}
-           className="text-center lg:text-left"
+          key={isLogin ? "login-h" : "signup-h"}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center lg:text-left"
         >
           <h1 className="text-3xl font-bold tracking-tight text-white">
             {isLogin ? "Welcome back" : "Create an account"}
           </h1>
           <p className="mt-2 text-zinc-400">
-            {isLogin ? "Enter your details to access the cosmos." : "Join us to explore the galaxy."}
+            {isLogin ? "Enter your details." : "Join the adventure."}
           </p>
         </motion.div>
       </div>
@@ -51,7 +54,14 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
             >
               <div className="space-y-2">
                 <label className="text-xs font-medium text-zinc-300 ml-1">Full Name</label>
-                <Input placeholder="John Doe" required={!isLogin} className="bg-zinc-900/50" />
+                <Input
+                  placeholder="John Doe"
+                  required={!isLogin}
+                  className="bg-zinc-900/50"
+                  // Triggers smiling/blinking
+                  onFocus={() => onInteractionChange("text")}
+                  onBlur={() => onInteractionChange("idle")}
+                />
               </div>
             </motion.div>
           )}
@@ -59,7 +69,15 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
 
         <div className="space-y-2">
           <label className="text-xs font-medium text-zinc-300 ml-1">Email Address</label>
-          <Input type="email" placeholder="voyager@cosmos.io" required className="bg-zinc-900/50" />
+          <Input
+            type="email"
+            placeholder="voyager@cosmos.io"
+            required
+            className="bg-zinc-900/50"
+            // Triggers smiling/blinking
+            onFocus={() => onInteractionChange("text")}
+            onBlur={() => onInteractionChange("idle")}
+          />
         </div>
 
         <div className="space-y-2">
@@ -73,6 +91,9 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
               placeholder="••••••••"
               required
               className="bg-zinc-900/50 pr-10"
+              // Triggers HANDS COVERING EYES
+              onFocus={() => onInteractionChange("password")}
+              onBlur={() => onInteractionChange("idle")}
             />
             <button
               type="button"
@@ -85,7 +106,7 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
         </div>
 
         <Button className="w-full h-12 mt-4" disabled={isLoading}>
-          {isLoading ? <Loader2 className="animate-spin" /> : (isLogin ? "Sign In" : "Sign Up")} 
+          {isLoading ? <Loader2 className="animate-spin" /> : (isLogin ? "Sign In" : "Sign Up")}
           {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
       </form>
@@ -108,10 +129,9 @@ export function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
             <Twitter className="mr-2 h-4 w-4 text-blue-400" /> Twitter
           </button>
         </div>
-
         <p className="mt-8 text-center text-sm text-zinc-500">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <button 
+          <button
             onClick={onToggleMode}
             className="font-medium text-primary hover:text-accent transition-colors hover:underline"
           >

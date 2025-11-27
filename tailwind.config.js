@@ -7,10 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        obsidian: "#09090b",
-        charcoal: "#18181b",
-        primary: "#8b5cf6",
-        accent: "#d946ef", 
+        obsidian: "#0b0c0f",
+        charcoal: "#131316",
+        graphite: "#1f1f23",
+        primary: "#6366f1",
+        secondary: "#22d3ee",
+        accent: "#c084fc", 
+        muted: "#a1a1aa",
+        border: "#27272a",
+        card: "#1a1a1e",
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
