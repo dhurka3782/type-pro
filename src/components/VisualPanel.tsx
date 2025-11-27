@@ -21,25 +21,37 @@ export function VisualPanel({ isLogin, interactionState }: VisualPanelProps) {
 
       {/* Bear centered */}
       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center z-10">
-        <motion.div
-          key={isLogin ? "dexo" : "domo"}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", duration: 0.8 }}
-          className="relative"
-        >
+        <div className="relative">
+
+          {/* CENTERED ROTATING BACKGROUND SHAPE */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+            className="absolute -right-5 -top-3 h-[310px] w-[310px] 
+                 -translate-x-1/2 -translate-y-1/2 
+                 rounded-[40%] border border-white/5 bg-white/5 
+                 backdrop-blur-3xl"
+          />
+
+          {/* Glow behind bear */}
           <div className="absolute inset-0 bg-card/30 blur-3xl rounded-full scale-110" />
 
-          <BearAvatar type={isLogin ? "dexo" : "domo"} state={interactionState} />
+          {/* Bear Avatar */}
+          <motion.div
+            key={isLogin ? "dexo" : "domo"}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", duration: 0.8 }}
+            className="relative"
+          >
+            <BearAvatar type={isLogin ? "dexo" : "domo"} state={interactionState} />
 
-          <div className="absolute -bottom-4 left-1/2 h-8 w-40 -translate-x-1/2 rounded-[100%] bg-charcoal/60 blur-lg" />
-        </motion.div>
-        {/* <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-          className="absolute right-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-[40%] border border-white/5 bg-white/5 backdrop-blur-3xl" 
-        /> */}
+            {/* Shadow */}
+            <div className="absolute -bottom-4 left-1/2 h-8 w-40 -translate-x-1/2 rounded-[100%] bg-charcoal/60 blur-lg" />
+          </motion.div>
+        </div>
       </div>
+
 
       {/* Text + Branding */}
       <div className="relative z-20 flex h-full flex-col justify-between p-12 pointer-events-none">

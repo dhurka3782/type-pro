@@ -12,7 +12,7 @@ export function BearAvatar({ type, state }: BearAvatarProps) {
   const colors = {
     skin: isBubu ? "#ffffff" : "#d4a373",
     stroke: isBubu ? "#e4e4e7" : "#a97142", 
-    ears: isBubu ? "#3f3f46" : "#8b5e3c",
+    ears: isBubu ? "#ffffff" : "#8b5e3c",
     cheeks: "#f472b6",
   };
 
