@@ -7,31 +7,29 @@ export type InteractionState = "idle" | "text" | "password";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
-  
-  // New State: Tracks what the user is typing
   const [interactionState, setInteractionState] = useState<InteractionState>("idle");
 
   return (
     <MotionConfig transition={{ type: "spring", stiffness: 120, damping: 20 }}>
-      <div className={`flex min-h-screen w-full bg-obsidian selection:bg-primary selection:text-white ${isLogin ? 'flex-col lg:flex-row' : 'flex-col lg:flex-row-reverse'}`}>
-        
-        {/* Visual Panel: Receives state to show correct bear and animation */}
+      <div
+        className={`flex min-h-screen w-full bg-obsidian selection:bg-primary selection:text-white ${
+          isLogin ? "flex-col lg:flex-row" : "flex-col lg:flex-row-reverse"
+        }`}
+      >
         <motion.div layout className="hidden h-screen w-full lg:flex lg:w-[55%]">
-          <VisualPanel 
-            isLogin={isLogin} 
-            interactionState={interactionState} 
-          />
+          <VisualPanel isLogin={isLogin} interactionState={interactionState} />
         </motion.div>
 
-        {/* Form Panel: Receives setter to update state on focus */}
-        <motion.div layout className="flex flex-1 flex-col items-center justify-center p-6 bg-obsidian z-10">
-          <AuthForm 
-            isLogin={isLogin} 
-            onToggleMode={() => setIsLogin(!isLogin)} 
+        <motion.div
+          layout
+          className="flex flex-1 flex-col items-center justify-center p-6 bg-obsidian z-10"
+        >
+          <AuthForm
+            isLogin={isLogin}
+            onToggleMode={() => setIsLogin(!isLogin)}
             onInteractionChange={setInteractionState}
           />
         </motion.div>
-
       </div>
     </MotionConfig>
   );

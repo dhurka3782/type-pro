@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 
 interface BearAvatarProps {
-  type: "bubu" | "dudu"; 
+  type: "dexo" | "domo" ; 
   state: "idle" | "text" | "password";
 }
 
 export function BearAvatar({ type, state }: BearAvatarProps) {
-  const isBubu = type === "bubu";
+  const isBubu = type === "dexo";
 
   // Colors
   const colors = {
@@ -19,13 +19,13 @@ export function BearAvatar({ type, state }: BearAvatarProps) {
   // Animation Variants
   const handVariants = {
     idle: { y: 0, x: 0 },
-    text: { y: 10, x: 0 }, // Hands slightly down/relaxed
-    password: { y: -55, x: 0 }, // Hands move UP to cover eyes
+    text: { y: 10, x: 0 }, 
+    password: { y: -55, x: 0 }, 
   };
 
   const faceVariants = {
     idle: { y: 0 },
-    text: { y: 2 }, // Head bobs slightly
+    text: { y: 2 }, 
     password: { y: 0 },
   };
 
@@ -35,7 +35,7 @@ export function BearAvatar({ type, state }: BearAvatarProps) {
     transition: {
       duration: 0.4,
       repeat: Infinity,
-      repeatDelay: state === "text" ? 0.5 : 3, // Blink faster when typing text
+      repeatDelay: state === "text" ? 0.5 : 3, 
     },
   };
 
